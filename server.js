@@ -90,12 +90,37 @@ app.post('/api/animals', (req, res) => {
     // set id based on what the next index of the array will be
     req.body.id = animals.length.toString();
 
+    // if any data in req.body is incorrect, send 400 error back
+    if (!validateAnimal(req.body)) {
+        res.status(400).send('The animal is not properly formatted.');
+    } else {
+        const animal = createNewAnimal(req.body, animals);
+        res.json(animal);
+}
+
     // add animal to json file and animals array in this function
     const animal = createNewAnimal(req.body, animals);
 
     res.json(animal);
     //res.json(req.body);
 });
+
+function validateAnimal(animal) {
+    if (!animal.name || typeof animal.name !== 'string') {
+      return false;
+    }
+    if (!animal.species || typeof animal.species !== 'string') {
+      return false;
+    }
+    if (!animal.diet || typeof animal.diet !== 'string') {
+      return false;
+    }
+    if (!animal.personalityTraits || !Array.isArray(animal.personalityTraits)) {
+      return false;
+    }
+    return true;
+  }
+
 /*
 app.listen(3001, () => {
     console.log(`API server now on port 3001!`);
