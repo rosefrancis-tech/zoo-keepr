@@ -3,6 +3,10 @@ const { animals } = require('./data/animals');
 const PORT = process.env.PORT || 3001;
 // reinstate serer
 const app = express();
+// parse incoming string or array data
+app.use(express.urlencoded({ extended: true }));
+// parse incoming JSON data
+app.use(express.json());
 
 // Function for filtering results from the data provided
 function filterByQuery(query, animalsArray) {
