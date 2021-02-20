@@ -9,6 +9,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
+// use all linked files index.html loads
+app.use(express.static('public'));
+
 
 // Function for filtering results from the data provided
 function filterByQuery(query, animalsArray) {
