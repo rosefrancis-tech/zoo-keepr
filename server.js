@@ -52,7 +52,14 @@ function findById(id, animalsArray) {
     const result = animalsArray.filter(animal => animal.id === id)[0];
     return result;
 }
-
+// Function to create the data from POST to our data(animals.json)
+function createNewAnimal(body, animalsArray) {
+    console.log(body);
+    // our function's main code will go here!
+  
+    // return finished code to post route for response
+    return body;
+}
 app.get('/api/animals', (req, res) => {
     //res.send('Hello!');
     let results = animals;
