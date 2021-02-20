@@ -1,4 +1,6 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const { animals } = require('./data/animals');
 const PORT = process.env.PORT || 3001;
 // reinstate serer
@@ -52,15 +54,18 @@ function findById(id, animalsArray) {
     const result = animalsArray.filter(animal => animal.id === id)[0];
     return result;
 }
+
 // Function to create the data from POST to our data(animals.json)
 function createNewAnimal(body, animalsArray) {
-    console.log(body);
-    // our function's main code will go here!
+    const animal = body;
     animalsArray.push(animal);
-
-    // return finished code to post route for response
-    return body;
+    fs.writeFileSync(
+      path.join(__dirname, './data/animals.json'),
+      JSON.stringify({ animals: animalsArray }, null, 2)
+    );
+    return animal;
 }
+
 app.get('/api/animals', (req, res) => {
     //res.send('Hello!');
     let results = animals;
