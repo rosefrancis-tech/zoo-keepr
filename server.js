@@ -12,7 +12,7 @@ app.use(express.json());
 // use all linked files index.html loads
 app.use(express.static('public'));
 
-
+/*
 // Function for filtering results from the data provided
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
@@ -68,7 +68,7 @@ function createNewAnimal(body, animalsArray) {
     );
     return animal;
 }
-
+*/
 app.get('/api/animals', (req, res) => {
     //res.send('Hello!');
     let results = animals;
@@ -107,7 +107,7 @@ app.post('/api/animals', (req, res) => {
     res.json(animal);
     //res.json(req.body);
 });
-
+/*
 function validateAnimal(animal) {
     if (!animal.name || typeof animal.name !== 'string') {
       return false;
@@ -123,7 +123,7 @@ function validateAnimal(animal) {
     }
     return true;
 }
-
+*/
 // routes to html files
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
