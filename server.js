@@ -1,18 +1,24 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const { animals } = require('./data/animals');
+//const fs = require('fs');
+//const path = require('path');
+//const { animals } = require('./data/animals');
 const PORT = process.env.PORT || 3001;
 // reinstate serer
 const app = express();
+
+const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 // use all linked files index.html loads
 app.use(express.static('public'));
+// use apiRoutes
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
 
-/*
+/* moved functions to animalRoutes.js in routes directory
 // Function for filtering results from the data provided
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
@@ -69,6 +75,8 @@ function createNewAnimal(body, animalsArray) {
     return animal;
 }
 */
+
+/*
 app.get('/api/animals', (req, res) => {
     //res.send('Hello!');
     let results = animals;
@@ -107,6 +115,8 @@ app.post('/api/animals', (req, res) => {
     res.json(animal);
     //res.json(req.body);
 });
+*/
+
 /*
 function validateAnimal(animal) {
     if (!animal.name || typeof animal.name !== 'string') {
@@ -124,6 +134,8 @@ function validateAnimal(animal) {
     return true;
 }
 */
+
+/* moved to index.js in routes directory
 // routes to html files
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
@@ -136,12 +148,14 @@ app.get('/animals', (req, res) => {
 app.get('/zookeepers', (req, res) => {
     res.sendFile(path.join(__dirname, './public/zookeepers.html'));
 });
+*/
 
 /*
 app.listen(3001, () => {
     console.log(`API server now on port 3001!`);
 });
 */
+
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 });
